@@ -8,12 +8,6 @@ For the free direct download: https://www.onhorizon.ai/
 <img width="494" alt="image" src="https://github.com/user-attachments/assets/e8db03f4-9365-449c-a845-e01b9440e42d" />
 
 
-
-I guess you could use it for cheating, but please follow honor codes (hacking vs cheating). More so for your privacy and not to block your screen recordings.
-
-Uses our backend for now, but you can substitute in yours.
-
-
 ## Feedback / Contributing
 
 To contribute or with feedback, pls [reach out to me](https://x.com/tejasthesharma) (just made an X account for ease)

@@ -1,6 +1,7 @@
 #if os(Windows)
 import SwiftWin32
 import WinSDK
+// WinSparkleManager provides update integration
 
 /// A simple Quick Capture overlay replicated for Windows using SwiftWin32.
 /// This mirrors the macOS `QuickCaptureWindow` structure with a text field
@@ -30,6 +31,17 @@ final class QuickCaptureWindowWin: Window {
 @main
 final class QuickCaptureApp: ApplicationDelegate, SceneDelegate {
     var window: Window!
+
+    func application(_ application: Application,
+                     didFinishLaunchingWithOptions options: [Application.LaunchOptionsKey : Any]?) -> Bool {
+        WinSparkleManager.initialize()
+        WinSparkleManager.checkForUpdates()
+        return true
+    }
+
+    func applicationWillTerminate(_ application: Application) {
+        WinSparkleManager.cleanUp()
+    }
 
     func sceneDidLoad(_ scene: Scene) {
         window = QuickCaptureWindowWin()

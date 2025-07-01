@@ -10,19 +10,28 @@ import AppKit
 import Carbon
 import Vision
 import ScreenCaptureKit
+#if os(macOS)
 import Sparkle
+#endif
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, ObservableObject {
     
     static var shared: AppDelegate!
     lazy var settingsWindow = SettingsWindowController()
     var setupWindow = SetupWindowController()
+    #if os(macOS)
     let updaterController: SPUStandardUpdaterController
- 
+
     override init() {
         updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
         super.init()
         AppDelegate.shared = self
     }
+    #else
+    override init() {
+        super.init()
+        AppDelegate.shared = self
+    }
+    #endif
 
     
     func applicationDidFinishLaunching(_ notification: Notification) {

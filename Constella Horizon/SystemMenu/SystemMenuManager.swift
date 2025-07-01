@@ -5,6 +5,7 @@
 //  Created by occlusion on 5/5/25.
 //
 
+#if os(macOS)
 import Cocoa
 import Sparkle
 
@@ -28,7 +29,7 @@ class SystemMenuManager {
         let item1 = NSMenuItem(title: "Settings", action: #selector(openSettings), keyEquivalent:"")
         item1.target = self
     
-        let item2 = NSMenuItem(title: "Check For Update...", action: #selector(SPUStandardUpdaterController.checkForUpdates(_:)), keyEquivalent:"")
+        let item2 = NSMenuItem(title: "Check For Update...", action: #selector(SPUStandardUpdaterController.checkForUpdates(_:)), keyEquivalent: "")
         item2.target = AppDelegate.shared.updaterController
     
         let item3 = NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent:"")
@@ -51,5 +52,9 @@ class SystemMenuManager {
     @objc private func quit() {
         NSApp.terminate(nil)
     }
-    
+
+
 }
+
+#endif
+

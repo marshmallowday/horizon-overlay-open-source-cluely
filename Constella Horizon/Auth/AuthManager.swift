@@ -7,7 +7,9 @@
 
 import Foundation
 import SwiftUI
+#if os(macOS)
 import AppKit
+#endif
 
 extension Notification.Name {
     static let authStatusChanged = Notification.Name("AuthStatusChanged")
@@ -100,7 +102,7 @@ class AuthManager: NSObject {
         let authURL = "https://onhorizon.ai/auth?fromHorizon=true&callback=\(encodedCallback)"
         
         if let url = URL(string: authURL) {
-            NSWorkspace.shared.open(url)
+            openExternalURL(url)
         }
     }
     

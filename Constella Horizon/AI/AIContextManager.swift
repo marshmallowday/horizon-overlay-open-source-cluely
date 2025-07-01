@@ -7,7 +7,12 @@
 
 import Foundation
 import Combine
+#if os(macOS)
 import AppKit
+#endif
+#if os(Windows)
+import WinSDK
+#endif
 import CoreGraphics
 import Vision
 
@@ -184,6 +189,10 @@ class AIContextManager: ObservableObject {
 
     /// Returns the cleaned URL (without scheme or “www.”) of the active tab for the specified browser, if available.
     private func getBrowserURL(_ appName: String) -> String? {
+#if os(Windows)
+        guard let script = getWindowsScriptText(appName) else { return nil }
+        return runPowerShellScript(script)
+#else
         guard let scriptText = getScriptText(appName) else { return nil }
 
         var error: NSDictionary?
@@ -196,7 +205,6 @@ class AIContextManager: ObservableObject {
             return nil
         }
 
-        // Clean URL output – remove protocol & unnecessary "www."
         if let url = URL(string: outputString), var host = url.host {
             if host.hasPrefix("www.") {
                 host = String(host.dropFirst(4))
@@ -206,6 +214,7 @@ class AIContextManager: ObservableObject {
         }
 
         return nil
+#endif
     }
 
     /// AppleScript source for fetching the front-most tab/document URL for supported browsers.
@@ -219,6 +228,20 @@ class AIContextManager: ObservableObject {
             return nil
         }
     }
+
+#if os(Windows)
+    /// PowerShell snippet for fetching the active tab URL for supported browsers on Windows.
+    private func getWindowsScriptText(_ appName: String) -> String? {
+        switch appName {
+        case "Google Chrome":
+            return "$sh=New-Object -ComObject Shell.Application;$u=$null;foreach($w in $sh.Windows()){if($w.FullName -match 'chrome.exe$'){$u=$w.Document.URL;break}};$u"
+        case "Safari":
+            return "$sh=New-Object -ComObject Shell.Application;$u=$null;foreach($w in $sh.Windows()){if($w.FullName -match 'msedge.exe$'){$u=$w.Document.URL;break}};$u"
+        default:
+            return nil
+        }
+    }
+#endif
     
 }
 

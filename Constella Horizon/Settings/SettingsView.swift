@@ -521,7 +521,7 @@ struct SettingsView: View {
                             if authModel.isAuthenticated {
                                 Button {
                                     if let url = URL(string: "https://www.constella.app/auth/account") {
-                                        NSWorkspace.shared.open(url)
+                                        openExternalURL(url)
                                     }
                                 } label: {
                                     Text("Manage Account")

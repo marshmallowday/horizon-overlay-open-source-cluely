@@ -523,14 +523,14 @@ struct FloatingOnboarding: View {
             onLinkClick: {
                 // Open Medium article
                 if let url = URL(string: "https://medium.com/@amanatulla1606/transformer-architecture-explained-2c49e2257b4c") {
-                    NSWorkspace.shared.open(url)
+                    openExternalURL(url)
                 }
                 advanceToNextStep()
             },
             onDiscordClick: {
                 // Open Discord invite
                 if let url = URL(string: "https://discord.gg/XwEhrdJt8H") {
-                    NSWorkspace.shared.open(url)
+                    openExternalURL(url)
                 }
             },
 //             onSlackClick: {
@@ -542,7 +542,7 @@ struct FloatingOnboarding: View {
             onXClick: {
                 // Open X/Twitter community
                 if let url = URL(string: "https://x.com/heyconstella") {
-                    NSWorkspace.shared.open(url)
+                    openExternalURL(url)
                 }
             },
             onShortcutUpdate: { newShortcut in

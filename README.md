@@ -36,3 +36,10 @@ Deals with taking in the screen permissions, user guide, etc.
 ## Contributing
 
 WIP, need to figure out best way
+
+## Windows Support
+
+An example implementation of the input manager for Windows is included in
+`Constella Horizon/InputEvent/Windows/InputEventManagerWin32.cpp`. It registers
+a low level keyboard hook with `SetWindowsHookEx` that mirrors the behaviour of
+the macOS `CGEventTap` logic.

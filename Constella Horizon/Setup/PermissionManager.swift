@@ -5,7 +5,9 @@
 //  Created by occlusion on 5/4/25.
 //
 
+#if os(macOS)
 import Cocoa
+#endif
 
 
 class PermissionModel: ObservableObject {
@@ -113,7 +115,7 @@ class PermissionManager: NSObject{
             DispatchQueue.main.asyncAfter(deadline: .now()+1.0, execute: {
                 let urlString = "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"
                 if let aString = URL(string: urlString) {
-                    NSWorkspace.shared.open(aString)
+                    openExternalURL(aString)
                 }
             })
         }
@@ -127,7 +129,7 @@ class PermissionManager: NSObject{
             DispatchQueue.main.asyncAfter(deadline: .now()+1.0, execute: {
                 let urlString = "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
                 if let aString = URL(string: urlString) {
-                    NSWorkspace.shared.open(aString)
+                    openExternalURL(aString)
                 }
             })
         }
